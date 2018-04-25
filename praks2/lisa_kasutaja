@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+clear
+echo -n "Kasutajanimi: "
+read username
+clear
+echo -n "Salasõna: "
+read password
+useradd -m $username -p $password
+usermod -aG $username $username
+passwd $username 
