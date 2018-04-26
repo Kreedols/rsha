@@ -1,5 +1,9 @@
 #!/bin/bash
 #
-while IFS='' read -r line || [[ -n "$line" ]]; do
-    useradd -m $line
-done < "$1"
+for rida in $(cat kasutajad)
+do
+	kasutajanimi=$(echo $rida | awk -F":"'{print $1})
+	parool=$(echo $rida | awk -F":"'{print $2})
+	useradd -m -s /bin/bash $kasutajanimi
+echo "$kasutajanimi:$parool" | chpasswd
+done
