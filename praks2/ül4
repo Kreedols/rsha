@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+
+echo "" > kasutajad
+for kasutaja in $(cat kasutaja)
+	do
+		echo $kasutaja":" >> kasutajad
+		#useradd -m -s /bin/bash $kasutaja
+		#echo "$parool" | passwd $kasutaja --stdin
+done
+
+
+for parool  in $(cat parool)
+        do
+		cat kasutajad |  awk -F ":" '{print $1}' | echo $parool >> kasutajad
+		#echo $parool >> kasutajad
+                #useradd -m -s /bin/bash $kasutaja
+                #echo "$parool" | passwd $kasutaja --stdin
+done
+

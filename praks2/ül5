@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+
+for kasutaja in $(cat kasutaja)
+	do
+	parool=$(pwgen -s 4 1)
+	useradd -m -s /bin/bash $kasutaja
+	echo "$kasutaja"":""$parool" | chpasswd
+done
