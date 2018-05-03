@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+
+
+if dpkg-query -W -f='${Status}' apache2 | grep -c 'ok installed'
+then
+	if ls /var/www/html/ | grep -c 'wordpress'
+	then
+        	clear
+        	echo "Apache2 ja Wordpress on installitud"
+        	service apache2 status
+	else
+	sudo apt install -y apache2 php7.0 php7.0-mysql libapache2-mod-php7.0 php7.0-cli php7.0-cgi php7.0-gd phpmyadmin php-mbstring php-xml php-php-gettext php-gettext mysql-client mysql-server
+	sudo mysql_secure_installation
+	cd
+	wget -c http://wordpress.org/latest.tar.gz
+	tar -xzvf latest.tar.gz
+
+	ECHO -n "Palun sisestage kasutajanimi Wordpressi ja MYSQL'i jaoks: "
+	read kasutaja
+	ECHO "Palun sisestage parool Wordpressi ja MYSQL'i jaoks: "
+	read parool
+
+	sudo rsync -av wordpress/* /var/www/html/
+	sudo chown -R www-data:www-data /var/www/html/
+	sudo chmod -R 755 /var/www/html/
+
+	ECHO "CREATE DATABASE wp_page;" | mysql -u root -p$parool
+	ECHO "GRANT ALL PRIVILEGES ON wp_page.* TO '$kasutaja@localhost' IDENTIFIED BY '$parool';" | mysql -u root -p$parool
+	ECHO "FLUSH PRIVILEGES;" | mysql -u root -p$parool
+	fi
+fi
