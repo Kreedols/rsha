@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+
+
+if dpkg-query -W -f='${Status}' nginx | grep -c 'ok installed'
+then
+	if dpkg-query -W -f='${Status}' php7.0 | grep -c 'ok installed'
+	then
+        	if dpkg-query -W -f='${Status}' mysql | grep -c 'ok installed'
+		then
+			if dpkg-query -W -f='${Status}' phpmyadmin | grep -c 'ok installed'
+	else
+		sudo apt install -y php7.0 php7.0-mysql libapache2-mod-php7.0 php7.0-cli php7.0-cgi php7.0-gd php-mbstring php-xml php-php-gettext php-gettext
+	fi
+else
+	sudo apt install -y nginx
+fi

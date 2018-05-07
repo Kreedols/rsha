@@ -1,0 +1,50 @@
+#!/bin/bash
+#
+
+
+if dpkg-query -W -f='${Status}' nginx | grep -c 'ok installed'
+then
+	if dpkg-query -W -f='${Status}' php7.0 | grep -c 'ok installed'
+	then
+        	if dpkg-query -W -f='${Status}' mysql-server | grep -c 'ok installed'
+		then
+			if dpkg-query -W -f='${Status}' phpmyadmin | grep -c 'ok installed'
+	                then
+				if dpkg-query -W -f='${Status}' wordpress | grep -c 'ok installed'
+				then
+					Echo "kõik on ilusasti installitud!"
+				else
+				sudo apt install -y apache2 php7.0 php7.0-mysql libapache2-mod-php7.0 php7.0-cli php7.0-cgi php7.0-gd phpmyadmin php-mbstring php-xml php-php-gettext php-gettext mysql-client mysql-server
+				sudo mysql_secure_installation
+				cd
+				wget -c http://wordpress.org/latest.tar.gz
+				tar -xzvf latest.tar.gz
+				
+				clear
+				echo -n "Palun sisestage kasutajanimi Wordpressi ja MYSQL'i jaoks: "
+				read kasutaja
+				clear
+				echo "Palun sisestage parool Wordpressi ja MYSQL'i jaoks: "
+				read parool
+
+				sudo rsync -av wordpress/* /var/www/html/wordpress
+				sudo chown -R www-data:www-data /var/www/html/
+#				sudo chmod -R 755 /var/www/html/
+
+				echo "CREATE DATABASE wp_page;" | mysql -u root -p$parool
+				echo "GRANT ALL PRIVILEGES ON wp_page.* TO '$kasutaja@localhost' IDENTIFIED BY '$parool';" | mysql -u root -p$parool
+				echo "FLUSH PRIVILEGES;" | mysql -u root -p$parool
+				fi
+                	else
+			sudo apt install -y phpmyadmin php-mbstring php-xml php-php-gettext php-gettext
+			ln -s /usr/share/phpmyadmin/ /var/www/html/phpmyadmin
+               		fi
+		else
+		sudo apt install -y mysql-server mysql-client
+		fi
+	else
+	sudo apt install -y php7.0 php7.0-mysql libapache2-mod-php7.0 php7.0-cli php7.0-cgi php7.0-gd php-mbstring php-xml php-php-gettext php-gettext
+	fi
+else
+sudo apt install -y nginx
+fi

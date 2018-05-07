@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+
+
+if dpkg-query -W -f='${Status}' apache2 | grep -c 'ok installed'
+then
+	if dpkg-query -W -f='${Status}' phpmyadmin | grep -c 'ok installed'
+	then
+        	clear
+        	echo "Apache2 ja Phpmyadmin on installitud"
+        	service apache2 status
+	else
+	sudo apt install -y apache2
+	sudo apt install -y phpmyadmin php-mbstring php-xml php-php-gettext php-gettext
+	fi
+fi
