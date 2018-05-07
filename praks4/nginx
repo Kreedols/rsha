@@ -29,7 +29,9 @@ then
 
 				sudo rsync -av wordpress/* /var/www/html/wordpress
 				sudo chown -R www-data:www-data /var/www/html/
-#				sudo chmod -R 755 /var/www/html/
+				sudo chmod -R 755 /var/www/html/
+#				wget https://raw.githubusercontent.com/toenail135/rsha/master/praks4/default -P /etc/nginx/sites-available/
+				systemctl reload nginx.service
 
 				echo "CREATE DATABASE wp_page;" | mysql -u root -p$parool
 				echo "GRANT ALL PRIVILEGES ON wp_page.* TO '$kasutaja@localhost' IDENTIFIED BY '$parool';" | mysql -u root -p$parool
