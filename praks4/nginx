@@ -30,7 +30,7 @@ then
 				sudo rsync -av wordpress/* /var/www/html/wordpress
 				sudo chown -R www-data:www-data /var/www/html/
 				sudo chmod -R 755 /var/www/html/
-				wget https://raw.githubusercontent.com/kreedols/rsha/praks4/default -P /etc/nginx/sites-available/
+				wget https://raw.githubusercontent.com/kreedols/rsha/blob/master/praks4/default -P /etc/nginx/sites-available/
 				systemctl reload nginx.service
 
 				echo "CREATE DATABASE wp_page;" | mysql -u root -p$parool

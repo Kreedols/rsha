@@ -4,7 +4,7 @@
 
 if dpkg-query -W -f='${Status}' nginx | grep -c 'ok installed'
 then
-	###if ls /var/www/html/ | grep -c 'wordpress'
+	if ls /var/www/html/ | grep -c 'wordpress'
 	then
         	clear
         	echo "Nginx on installitud"
