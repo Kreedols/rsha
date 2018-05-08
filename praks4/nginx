@@ -10,9 +10,10 @@ then
 		then
 			if dpkg-query -W -f='${Status}' phpmyadmin | grep -c 'ok installed'
 	                then
-				if dpkg-query -W -f='${Status}' wordpress | grep -c 'ok installed'
+				if #dpkg-query -W -f='${Status}' wordpress 
+				ls /var/www/html/| grep -c 'wordpress'
 				then
-					Echo "kõik on ilusasti installitud!"
+					echo "kõik on ilusasti installitud!"
 				else
 				sudo apt install -y apache2 php7.0 php7.0-mysql libapache2-mod-php7.0 php7.0-cli php7.0-cgi php7.0-gd phpmyadmin php-mbstring php-xml php-php-gettext php-gettext mysql-client mysql-server
 				sudo mysql_secure_installation
