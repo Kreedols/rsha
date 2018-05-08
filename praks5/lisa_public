@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+echo -n "Kasutajanimi: "
+read user
+
+mkdir public_html /home/$user/public_html
+echo "Tere $user!" > /home/$user/public_html/index.html
+chown -R 755 /home/$user/public_html
+chown -R $user:www-data /home/$user/public_html
+a2enmod userdir
+service apache2 restart 
