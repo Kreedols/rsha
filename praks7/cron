@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "SHELL = /bin/bash" > mycron
+echo "" >> mycron
+echo "MAILTO= root" >> mycron
+echo "" >> mycron
+echo '0 2,4,6,8,10,12,14,16,18,20,22 * * * root "/home/user/rsha/praks6/kasutajad_db user"' >> mycron
+echo "" >> mycron
+echo '0 0 * * * root "/home/user/rsha/praks6/varunda_db_kasutaja user testdb"' >> mycron
+
+sudo crontab /home/user/rsha/praks7/mycron
+sudo cat /var/spool/cron/crontabs/root
+rm /home/user/rhsa/praks7/mycron
